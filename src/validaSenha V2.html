@@ -1,8 +1,9 @@
 <!--
-    Programa: Validador de senha
+    Programa: Cifra de Cesar
     Descrição:
 
-    O programa recebe uma senha e verifica se ela é válida ou não. A senha deverá
+    O programa recebe uma valor por <textarea> e ao selecionar a opção de
+    criptografar ou descriptografar é
     seguir padrões para ser considerada de um nivel Forte, Moderada ou Fraca.
     O validador mostra em tempo real o nível de segurança da senha digitada.
 
@@ -12,18 +13,16 @@
     Histórico de Alterações:
      V |   Data   | Autor/Descrição
     ----------------------------------------------------------------------------
-     0 | 12.10.23 | Joniclei B. Jr - Versão inicial
-       |          | Criação do Programa
+     0 | 13.10.23 | Joniclei B. Jr - Versão inicial
+       |          | Criação do Programa,criação do layout com css e testes de
+       |          | entrada e saida,validando uppercase e transformando para
+       |          | unicode.
     ----------------------------------------------------------------------------
-     1 | 13.10.23 | Joniclei B. Jr - Versão inicia
-       |          | Correcao na parte de backspace foi tentado fazer com
-       |          | validacao numerica atraves do unicode(backspace que é 8)
-       |          | mas nao deu certo, entao foi feito uma validacao repetida,
-       |          | finalizado o style passado validacao.
+     1 | 14.10.23 | Joniclei B. Jr - Versão inicial
+       |          | Correcao de erros no if e else if...validando só letras
     ----------------------------------------------------------------------------
-    2  | 13.10.23 | Joniclei B. Jr - Versão inicia
-       |          | Finalizando projeto,arrumando os if de validacao
-       |          |
+    2 | 14.10.23 | Joniclei B. Jr - Versão inicial
+       |          | Finalizando com button e retirando em tempo real
     ----------------------------------------------------------------------------
 
 
@@ -37,13 +36,10 @@
     - Estilizacao da pagina
 
     processamento:
-    - input com tipo password para esconder a senha
-    - adquirir o valor digitado
-    - verifica até 5 pontos,sendo if para cada ponto
-    - soma cada ponto
-    - resultado em tempo real usando input na funcao
-    - mudei o input para keydown para que o resultado seja em tempo real
-    - usado um output para mostrar o resultado temporiamente.
+    - textearea para entrar com o texto
+    - crifra como checkado para inicializar pré selecionado
+    - alterar valor no input para mudar o index
+    - saida em tempo real
 
     saídas:
     se o recebido foi aumentando os caracteres ele vai somando os pontos respecitavamente como a regra
@@ -59,139 +55,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./CSS/style.css">
-    <title>Validador de senha</title>
+    <title>Cifra de Cesar </title>
 </head>
 
 <body>
     <header>
-        <div id="espacoSemNav"> </div>
+
     </header>
     <main>
-        <div class="centraOlho">
+        <div id="idCardDoForm">
+            <div class="cardDoDivCentral">
+                <div class="cardDoDivCentralb">
+                    <div class="cardDoDivCentralc">
+                        <div class="cardDoDivCentrald">
+                            <div id="iDdivDoForm" class="cardDoDivCentrale">
+                                <form action="">
+                                    <textarea class="textArea" name="" id="idEntrada" cols="30" rows="10"></textarea>
+                                    <div id="idBlocoSelecao">
+                                        <div id="idBlocoRadios">
+                                            <div class="radioLabel">
+                                                <input class="botaoEstilizado" type="radio" id="idRadioCrifra"
+                                                    name="selCifDec" checked>
+                                                <label for="idRadioCrifra">Crifrar</label>
 
-            <div id="formDaSenha">
-                <form class="formSenha" action="">
-
-                    <div class="inputSenha">
-                    <!-- <h1>Verificar força de senha</h1> -->
-                        <input type="text" id="inputSenha">
+                                            </div>
+                                            <div class="radioLabel">
+                                                <input class="botaoEstilizado" type="radio" id="idRadioDecrifrar"
+                                                    name="selCifDec" >
+                                                <label for="idRadioDecrifrar">Decifrar</label>
+                                            </div>
+                                        </div>
+                                        <input class="inputValor" type="number" name="" id="idIndex" />
+                                    </div>
+                                    <div class="styleValide">
+                                        <button type="button" id="idButtonResposta" >Valide</button>
+                                    </div>
+                                    <textarea class="textArea" name="" id="Saida" cols="30" rows="10"></textarea>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <input id="result" class="resultado"></input>
-                    </div>
-
-                </form>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        const recebendoSenha = document.querySelector('#inputSenha');
-
-        const formDaSenha = document.querySelector('#formDaSenha');
 
 
-        recebendoSenha.addEventListener('input', function () {
-            const result = document.querySelector('#result');
 
-            let pontos = 0;
+        const idButtonResposta = document.getElementById("idButtonResposta");
 
-            let validacaoNumerica = 'a';
+        idButtonResposta.addEventListener("click", function () {
+            const idEntrada = document.getElementById("idEntrada");
+            console.log("entrou")
+            const idRadioCrifra = document.getElementById("idRadioCrifra").checked;
+            const idRadioDecrifrar = document.getElementById("idRadioDecrifrar").checked;
+            const idSaida = document.getElementById("Saida");
+            const recebendoValue = idEntrada.value;
+            const idIndex = document.getElementById("idIndex").value;
+            let uppercase = recebendoValue.toUpperCase();
+            let resposta = "";
+            let unicode = 0;
+            let valor = 0;
+            let respostaUnicodeCahar = "";
 
-            let validacaoMaiuscula = 'a';
+            for (let i = 0; i < recebendoValue.length; i++) {
 
-            let validacaoMinuscula = 'a';
+                unicode = Number(uppercase.charCodeAt(i));
+                if (unicode >= 65 && unicode <= 90){
+                    if (idRadioCrifra == true) {
+                        valor = (unicode) + (Number(idIndex));
+                        if (valor > 90) {
+                            valor = 64 + (valor - 90);
+                        }
 
-            let validacaoEspecial = 'a';
+                    } else if (idRadioDecrifrar){
 
-            const recebendoValue = recebendoSenha.value;
-            console.log("valida", validacaoEspecial)
-
-
-            for (let i = 0; i < recebendoSenha.value.length; i++) {
-
-                const senha = recebendoValue[i];
-
-                const result = document.querySelector('#result');
-
-                const unicode = Number(senha.charCodeAt(0));
-
-                //console.log("pontos", senha.length)
-                // aqui mesmo sendo maior que 1 eu coloquei 1 pois i sao dois 2 i0 e i1
-                if (i == 1) {
-                    pontos++;
-                    console.log("pontos 2", pontos)
+                        valor = (unicode) - (Number(idIndex));
+                        if (valor < 65) {
+                            valor = 91 - (65 - valor);
+                        }
+                    }
+                    respostaUnicodeCahar = String.fromCharCode(valor);
                 }
-                if (i == 6) {
-                    pontos++;
-                    console.log("pontos 7", pontos)
+                else{
+                    respostaUnicodeCahar = String.fromCharCode(unicode);
                 }
-                if (i == 9) {
-                    pontos++;
-                    console.log("pontos 10", pontos)
-                }
-                if (i == 11) {
-                    pontos++;
-                    console.log("pontos 12", pontos)
-                }
-                if (i == 13) {
-                    pontos++;
-                    console.log("pontos 14", pontos)
-                }
-                if (unicode >= 48 && unicode <= 57 && validacaoNumerica == 'a') {
-                    pontos++;
-                    console.log("pontos numero", pontos)
-                    validacaoNumerica = 'b';
-                }
-
-                if (unicode >= 65 && unicode <= 90 && validacaoMaiuscula == 'a') {
-                    pontos++;
-                    console.log("pontos numero", pontos)
-                    validacaoMaiuscula = 'b';
-                }
-
-                if (unicode >= 97 && unicode <= 122 && validacaoMinuscula == 'a') {
-                    pontos++;
-                    console.log("pontos numero", pontos)
-                    validacaoMinuscula = 'b';
-                }
-
-                if (((unicode >= 33 && unicode <= 47) || (unicode >= 58 && unicode <= 64) || (unicode >= 91 && unicode <= 96) || (unicode >= 123 && unicode <= 126)) && validacaoEspecial == 'a') {
-                    pontos = pontos + 2;
-                    console.log("pontos numero", pontos)
-                    validacaoEspecial = 'b';
-                    console.log("valida", validacaoEspecial)
-
-                }
-
-                console.log("valida", validacaoEspecial)
-
-
-                if (pontos >= 9) {
-                    formDaSenha.style.backgroundColor = 'var(--cor-forte)';
-                    result.value = "Forte" + pontos;
-                } else if ((pontos > 5) && (pontos < 9)) {
-                    formDaSenha.style.backgroundColor = 'var(--cor-moderada)';
-                    result.value = "Moderada" + pontos;
-                } else {
-                    formDaSenha.style.backgroundColor = 'var(--cor-fraca)';
-                    result.value = "Fraca" + pontos;
-                }
-
-                console.log("finalera", pontos);
-
-
-
+                resposta = resposta + respostaUnicodeCahar;
+                console.count("resposta")
+                idSaida.textContent = resposta;
             }
-
         })
-
-
-
     </script>
-
-
-
     <footer></footer>
 </body>
 
