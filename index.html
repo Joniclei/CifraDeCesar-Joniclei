@@ -1,154 +1,40 @@
-<!--
-    Programa: Cifra de Cesar
-    Descrição:
-
-    O programa recebe uma valor por <textarea> e ao selecionar a opção de
-    criptografar ou descriptografar é
-    seguir padrões para ser considerada de um nivel Forte, Moderada ou Fraca.
-    O validador mostra em tempo real o nível de segurança da senha digitada.
-
-    Autor: Joniclei B. Jr
-    Data: 12.10.2023
-
-    Histórico de Alterações:
-     V |   Data   | Autor/Descrição
-    ----------------------------------------------------------------------------
-     0 | 13.10.23 | Joniclei B. Jr - Versão inicial
-       |          | Criação do Programa,criação do layout com css e testes de
-       |          | entrada e saida,validando uppercase e transformando para
-       |          | unicode.
-    ----------------------------------------------------------------------------
-     1 | 14.10.23 | Joniclei B. Jr - Versão inicial
-       |          | Correcao de erros no if e else if...validando só letras
-    ----------------------------------------------------------------------------
-    2 | 14.10.23 | Joniclei B. Jr - Versão inicial
-       |          | Finalizando com button e retirando em tempo real
-    ----------------------------------------------------------------------------
-
-
--->
-
-<!-- Análise (Rascunho...)
------------------
-    entradas:
-    - Titulo do programa
-    - 1 input para digitar
-    - Estilizacao da pagina
-
-    processamento:
-    - textearea para entrar com o texto
-    - crifra como checkado para inicializar pré selecionado
-    - alterar valor no input para mudar o index
-    - saida em tempo real
-
-    saídas:
-    se o recebido foi aumentando os caracteres ele vai somando os pontos respecitavamente como a regra
-    os comentarios no codigo explicam melhor o que cada parte faz
--->
-
-
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./src/CSS/style.css">
-    <title>Cifra de Cesar </title>
+    <title>Em Construção</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            color: #333;
+        }
+        p {
+            font-size: 1.5em;
+            color: #666;
+        }
+        .icon {
+            font-size: 5em;
+            color: #ffcc00;
+        }
+    </style>
 </head>
-
 <body>
-    <header>
-
-    </header>
-    <main>
-        <div id="idCardDoForm">
-            <div class="cardDoDivCentral">
-                <div class="cardDoDivCentralb">
-                    <div class="cardDoDivCentralc">
-                        <div class="cardDoDivCentrald">
-                            <div id="iDdivDoForm" class="cardDoDivCentrale">
-                                <form action="">
-                                    <textarea class="textArea" name="" id="idEntrada" cols="30" rows="10"></textarea>
-                                    <div id="idBlocoSelecao">
-                                        <div id="idBlocoRadios">
-                                            <div class="radioLabel">
-                                                <input class="botaoEstilizado" type="radio" id="idRadioCrifra"
-                                                    name="selCifDec" checked>
-                                                <label for="idRadioCrifra">Crifrar</label>
-
-                                            </div>
-                                            <div class="radioLabel">
-                                                <input class="botaoEstilizado" type="radio" id="idRadioDecrifrar"
-                                                    name="selCifDec" >
-                                                <label for="idRadioDecrifrar">Decifrar</label>
-                                            </div>
-                                        </div>
-                                        <input class="inputValor" type="number" name="" id="idIndex" />
-                                    </div>
-                                    <div class="styleValide">
-                                        <button type="button" id="idButtonResposta" >Valide</button>
-                                    </div>
-                                    <textarea class="textArea" name="" id="Saida" cols="30" rows="10"></textarea>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-
-
-
-        const idButtonResposta = document.getElementById("idButtonResposta");
-
-        idButtonResposta.addEventListener("click", function () {
-            const idEntrada = document.getElementById("idEntrada");
-            console.log("entrou")
-            const idRadioCrifra = document.getElementById("idRadioCrifra").checked;
-            const idRadioDecrifrar = document.getElementById("idRadioDecrifrar").checked;
-            const idSaida = document.getElementById("Saida");
-            const recebendoValue = idEntrada.value;
-            const idIndex = document.getElementById("idIndex").value;
-            let uppercase = recebendoValue.toUpperCase();
-            let resposta = "";
-            let unicode = 0;
-            let valor = 0;
-            let respostaUnicodeCahar = "";
-
-            for (let i = 0; i < recebendoValue.length; i++) {
-
-                unicode = Number(uppercase.charCodeAt(i));
-                if (unicode >= 65 && unicode <= 90){
-                    if (idRadioCrifra == true) {
-                        valor = (unicode) + (Number(idIndex));
-                        if (valor > 90) {
-                            valor = 64 + (valor - 90);
-                        }
-
-                    } else if (idRadioDecrifrar){
-
-                        valor = (unicode) - (Number(idIndex));
-                        if (valor < 65) {
-                            valor = 91 - (65 - valor);
-                        }
-                    }
-                    respostaUnicodeCahar = String.fromCharCode(valor);
-                }
-                else{
-                    respostaUnicodeCahar = String.fromCharCode(unicode);
-                }
-                resposta = resposta + respostaUnicodeCahar;
-                console.count("resposta")
-                idSaida.textContent = resposta;
-            }
-        })
-    </script>
-    <footer></footer>
+    <div class="container">
+        <div class="icon">🚧</div>
+        <h1>Em Construção</h1>
+    </div>
 </body>
-
 </html>
